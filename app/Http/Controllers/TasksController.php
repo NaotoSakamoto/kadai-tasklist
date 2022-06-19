@@ -73,7 +73,7 @@ class TasksController extends Controller
 
         // メッセージ詳細ビューでそれを表示
         return view('tasks.show', [
-            'task' => $message,
+            'task' => $task,
         ]);
     }
 
