@@ -17,8 +17,8 @@
                 @foreach ($tasks as $task)
                 <tr>
                     {{-- タスク詳細ページへのリンク --}}
-                    <td>{!! link_to_route('tasks.show', $message->id, ['task' => $message->id]) !!}</td>
-                    <td>{{ $message->content }}</td>
+                    <td>{!! link_to_route('tasks.show', $task->id, ['task' => $task->id]) !!}</td>
+                    <td>{{ $task->content }}</td>
                 </tr>
                 @endforeach
             </tbody>
