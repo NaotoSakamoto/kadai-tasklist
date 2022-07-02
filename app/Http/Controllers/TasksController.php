@@ -27,10 +27,11 @@ class TasksController extends Controller
                 'user' => $user,
                 'tasks' => $tasks,
             ];
+            return view('tasks.index', $data);
         }
         
         // Welcomeビューでそれらを表示
-        return view('welcome', $data);
+        else return view('welcome', $data);
     }
     
     /**
@@ -67,6 +68,7 @@ class TasksController extends Controller
         // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
         $request->user()->tasks()->create([
             'content' => $request->content,
+            'status' => $request->content,
         ]);
 
         // トップページへリダイレクトさせる
