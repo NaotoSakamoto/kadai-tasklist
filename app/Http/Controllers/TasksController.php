@@ -85,6 +85,10 @@ class TasksController extends Controller
     {
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
+        
+        if (\Auth::id() === $task->user_id) {
+            $task->get();
+        }
 
         // メッセージ詳細ビューでそれを表示
         return view('tasks.show', [
@@ -102,6 +106,10 @@ class TasksController extends Controller
     {
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
+        
+        if (\Auth::id() === $task->user_id) {
+            $task->post();
+        }
 
         // メッセージ編集ビューでそれを表示
         return view('tasks.edit', [
@@ -126,6 +134,10 @@ class TasksController extends Controller
         
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
+        
+        if (\Auth::id() === $task->user_id) {
+            $task->put();
+        }
         // タスクを更新
         $task->status = $request->status;
         $task->content = $request->content;
