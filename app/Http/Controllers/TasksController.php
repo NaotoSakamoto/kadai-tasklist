@@ -31,7 +31,8 @@ class TasksController extends Controller
         
         // Welcomeビューでそれらを表示
         return view('welcome', $data);
-
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
