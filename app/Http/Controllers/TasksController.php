@@ -86,8 +86,8 @@ class TasksController extends Controller
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
         
-        if (\Auth::id() === $task->user_id) {
-            $task->get();
+        if (\Auth::id() !== $task->user_id) {
+            return redirect('/');
         }
 
         // メッセージ詳細ビューでそれを表示
@@ -107,8 +107,8 @@ class TasksController extends Controller
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
         
-        if (\Auth::id() === $task->user_id) {
-            $task->post();
+        if (\Auth::id() !== $task->user_id) {
+            return redirect('/');
         }
 
         // メッセージ編集ビューでそれを表示
@@ -135,14 +135,15 @@ class TasksController extends Controller
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
         
-        if (\Auth::id() === $task->user_id) {
-            $task->put();
+        if (\Auth::id() !== $task->user_id) {
+            return redirect('/');
         }
+            
         // タスクを更新
         $task->status = $request->status;
         $task->content = $request->content;
         $task->save();
-
+        
         // トップページへリダイレクトさせる
         return redirect('/');
     }
@@ -157,12 +158,13 @@ class TasksController extends Controller
     {
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
-        // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は、投稿を削除
-        if (\Auth::id() === $task->user_id) {
-            $task->delete();
+        
+        // 認証済みユーザ（閲覧者）がその投稿の所有者でない場合は、トップページへリダイレクトさせる
+        if (\Auth::id() !== $task->user_id) {
+            return redirect('/');
         }
 
-        // トップページへリダイレクトさせる
+        $task->delete();
         return redirect('/');
     }
 }
